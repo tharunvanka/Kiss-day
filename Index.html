@@ -13,7 +13,7 @@
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #1b1b1b, #0a0a0a);
+  background: radial-gradient(circle at center, #181818, #070707);
   color: #f5f5f5;
   font-family: 'Playfair Display', serif;
   display: flex;
@@ -23,12 +23,12 @@ body {
   transition: background 2s ease;
 }
 
-/* Warm final tone */
-body.warm {
-  background: radial-gradient(circle at center, #2a0f14, #120406);
-}
+/* Warmth increases gradually */
+body.stage2 { background: radial-gradient(circle at center, #2a1115, #120506); }
+body.stage3 { background: radial-gradient(circle at center, #3a141a, #170607); }
+body.stage4 { background: radial-gradient(circle at center, #4a1820, #1c0708); }
+body.final  { background: radial-gradient(circle at center, #5c1b25, #23090a); }
 
-/* Container */
 .container {
   width: 90%;
   max-width: 420px;
@@ -41,37 +41,35 @@ body.warm {
   animation: fadeIn 1.6s ease forwards;
 }
 
-.page.active {
-  display: block;
-}
+.page.active { display: block; }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* Text */
 .line {
-  font-size: 22px;
-  line-height: 1.8;
-  letter-spacing: 0.4px;
+  font-size: 24px;
+  line-height: 1.9;
+  letter-spacing: 0.5px;
 }
 
-/* Name style */
+/* Name */
 .name {
   font-family: 'Dancing Script', cursive;
-  font-size: 44px;
+  font-size: 48px;
   margin-top: 18px;
   color: #E6C78A;
 }
 
 /* Button */
 button {
-  margin-top: 40px;
+  margin-top: 44px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.35);
   color: #fff;
-  padding: 10px 28px;
+  padding: 11px 30px;
   border-radius: 30px;
   font-size: 14px;
   letter-spacing: 1px;
@@ -89,45 +87,39 @@ button:hover {
 
 <div class="container">
 
-  <!-- PAGE 1 -->
   <div class="page active">
+    <div class="line">Come a little closer…</div>
+    <button onclick="next()">Continue</button>
+  </div>
+
+  <div class="page">
     <div class="line">
-      Not every kiss is loud.
+      I don’t want a moment.<br>
+      I want <i>you</i> in it.
     </div>
     <button onclick="next()">Continue</button>
   </div>
 
-  <!-- PAGE 2 -->
   <div class="page">
     <div class="line">
-      Some are quiet,<br>
-      slow,<br>
-      and full of meaning.
+      Your eyes…<br>
+      make me forget everything else.
     </div>
     <button onclick="next()">Continue</button>
   </div>
 
-  <!-- PAGE 3 -->
   <div class="page">
     <div class="line">
-      If I could,<br>
-      I would hold your face,<br>
-      look into your eyes…
+      Right now,<br>
+      I’d hold you gently…
     </div>
     <button onclick="next()">Continue</button>
   </div>
 
-  <!-- FINAL PAGE -->
   <div class="page">
-    <div class="line">
-      …and kiss you softly.
-    </div>
-
+    <div class="line">…and kiss you like you’re mine.</div>
     <div class="name">Pranathi ❤️</div>
-
-    <div class="line" style="margin-top:20px;font-size:18px;">
-      Happy Kiss Day
-    </div>
+    <div class="line" style="margin-top:20px;font-size:18px;">Happy Kiss Day</div>
   </div>
 
 </div>
@@ -135,6 +127,7 @@ button:hover {
 <script>
 let index = 0;
 const pages = document.querySelectorAll('.page');
+const stages = ["stage2","stage3","stage4","final"];
 
 function next() {
   pages[index].classList.remove('active');
@@ -144,8 +137,8 @@ function next() {
     pages[index].classList.add('active');
   }
 
-  if (index === pages.length - 1) {
-    document.body.classList.add("warm");
+  if (index-1 < stages.length) {
+    document.body.classList.add(stages[index-1]);
   }
 }
 </script>
